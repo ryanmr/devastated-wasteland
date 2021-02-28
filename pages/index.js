@@ -3,7 +3,7 @@ export default function Home() {
     <>
       <div>
         <div
-          className="bg-black h-screen text-center flex flex-col justify-center items-center"
+          className="flex flex-col items-center justify-center h-screen text-center bg-black"
           style={{
             backgroundImage:
               "url('https://images.unsplash.com/photo-1508556497405-ed7dcd94acfc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1')",
@@ -244,20 +244,20 @@ export default function Home() {
           </div>
 
           <h1
-            className="text-white uppercase text-2xl sm:text-3xl md:text-4xl lg:text-6xl tracking-wider"
+            className="text-2xl tracking-wider text-white uppercase sm:text-3xl md:text-4xl lg:text-6xl"
             style={{ fontFamily: "'Monoton', cursive" }}
           >
             devastated wasteland
           </h1>
           <div className="my-4 mb-48">
             <p
-              className="text-white text-2xl"
+              className="text-2xl text-white"
               style={{ fontFamily: "'Alata', cursive" }}
             >
               coming soon
             </p>
             <p
-              className="text-white text-lg"
+              className="text-lg text-white"
               style={{ fontFamily: "'Alata', cursive" }}
             >
               2021
@@ -265,7 +265,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="container mx-auto px-2" style={{ maxWidth: "65ch" }}>
+        <div className="container px-2 mx-auto" style={{ maxWidth: "65ch" }}>
           <section className="my-8">
             <p className="">
               Why <strong>devastated wasteland</strong>?{" "}
@@ -296,7 +296,7 @@ export default function Home() {
               principles.
             </p>
 
-            <blockquote className="my-4 px-8 space-y-4">
+            <blockquote className="px-8 my-4 space-y-4">
               <p>
                 Q: You signed the Agile Manifesto almost 20 years ago. How do
                 you feel about agile now?
@@ -312,9 +312,9 @@ export default function Home() {
           </section>
 
           <div className="w-1/2 mx-auto my-2">
-            <div className="h-1 bg-black bg-opacity-25 my-1"></div>
-            <div className="h-1 bg-black bg-opacity-25 my-1"></div>
-            <div className="h-1 bg-black bg-opacity-25 my-1"></div>
+            <div className="h-1 my-1 bg-black bg-opacity-25"></div>
+            <div className="h-1 my-1 bg-black bg-opacity-25"></div>
+            <div className="h-1 my-1 bg-black bg-opacity-25"></div>
           </div>
 
           <article className="my-8">
@@ -413,7 +413,7 @@ export default function Home() {
         </div>
 
         <footer>
-          <div className="flex justify-center items-center my-20">
+          <div className="flex items-center justify-center my-20">
             <div className="p-4">
               <svg
                 className="h-20"
@@ -646,7 +646,7 @@ export default function Home() {
               </svg>
             </div>
           </div>
-          <div className="flex justify-center items-center my-12">
+          <div className="flex items-center justify-center my-12">
             <p>
               <span>
                 Photo by{" "}
