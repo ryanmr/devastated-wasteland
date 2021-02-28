@@ -244,7 +244,7 @@ export default function Home() {
           </div>
 
           <h1
-            className="text-white uppercase text-6xl tracking-wider"
+            className="text-white uppercase text-2xl sm:text-3xl md:text-4xl lg:text-6xl tracking-wider"
             style={{ fontFamily: "'Monoton', cursive" }}
           >
             devastated wasteland
