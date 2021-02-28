@@ -1,11 +1,6 @@
-import Head from "next/head";
-
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Devastated Wasteland</title>
-      </Head>
       <div>
         <div
           className="bg-black h-screen text-center flex flex-col justify-center items-center"
