@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+    @import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+    
+}
+
+@layer utilities {
+    @responsive {
+        .animate-translate {
+            animation: wave 2s linear infinite;
+        }
+    }
+    
+    @keyframes wave {
+        0% {
+            transform: translateX(-12.5rem);
+        }
+        
+        100% {
+            transform: translateX(0);
+        }
+    }
+}
