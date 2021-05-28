@@ -130,6 +130,16 @@ export default function Home() {
 
           <article className="my-8">
             <h2 className="text-3xl leading-10 font-primary">
+              There are no 4's in the Serengeti
+            </h2>
+            <p>
+              Right angles are boring.  Break out of your four box.  
+              Creative outcomes come as a result of prime number increments.  
+            </p>
+          </article>
+
+          <article className="my-8">
+            <h2 className="text-3xl leading-10 font-primary">
               We're in a state of Jabberwocky
             </h2>
             <p>
