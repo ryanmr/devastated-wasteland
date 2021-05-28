@@ -133,7 +133,7 @@ export default function Home() {
               There are no 4's in the Serengeti
             </h2>
             <p>
-              Rright angles are boring.  Break out of your four box.  
+              Right angles are boring.  Break out of your four box.  
               Creative outcomes come as a result of prime number increments.  
             </p>
           </article>
