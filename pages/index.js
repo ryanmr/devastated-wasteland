@@ -140,6 +140,17 @@ export default function Home() {
 
           <article className="my-8">
             <h2 className="text-3xl leading-10 font-primary">
+              There is no sand in the Serengeti
+            </h2>
+            <p>
+              Boulders, rocks and sand are a fallacy.  The jar is full enough.
+              You can't fill people's the gaps in people's capacity with additional tasks.
+              Believing multi-tasking works is a one way ticket to productivity collapse.
+            </p>
+          </article>
+              
+          <article className="my-8">
+            <h2 className="text-3xl leading-10 font-primary">
               We're in a state of Jabberwocky
             </h2>
             <p>
