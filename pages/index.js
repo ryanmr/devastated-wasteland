@@ -1,5 +1,6 @@
 import { Colophon } from "../components/Colophon";
 import { Logo } from "../components/Logo";
+import { ConeChart } from "../components/ConeChart";
 import { TripleLineDivider } from "../components/TripleLineDivider";
 
 export default function Home() {
@@ -133,8 +134,8 @@ export default function Home() {
               There are no 4's in the Serengeti
             </h2>
             <p>
-              Right angles are boring.  Break out of your four box.  
-              Creative outcomes come as a result of prime number increments.  
+              Right angles are boring. Break out of your four box. Creative
+              outcomes come as a result of prime number increments.
             </p>
           </article>
 
@@ -147,6 +148,7 @@ export default function Home() {
               believe. And don't do your research.
             </p>
           </article>
+          <ConeChart />
         </div>
 
         <footer>
