@@ -73,8 +73,6 @@ export function ConeChart() {
           </div>
         </p>
       </article>
-
-      <h1></h1>
     </>
   );
 }
