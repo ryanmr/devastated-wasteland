@@ -23,7 +23,7 @@ export default function Home() {
           </h1>
           <div className="my-4 mb-48">
             <p className="text-2xl text-white font-primary">coming soon</p>
-            <p className="text-lg text-white font-primary">2021</p>
+            <p className="text-lg text-white font-primary">2022</p>
           </div>
         </div>
 
