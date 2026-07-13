@@ -1,0 +1,169 @@
+---
+// "Cone of Uncertainty" — an interactive island. A single loading bar
+// estimate spirals into the abyss as you drag the slider.
+---
+
+<article class="cone reveal" data-cone>
+  <p class="kicker">Estimate</p>
+  <h2 class="cone__title">Cone of uncertainty <span aria-hidden="true">🎉</span></h2>
+
+  <div class="cone__control">
+    <label class="cone__label" for="cone-range">Stories in the epic</label>
+    <input
+      id="cone-range"
+      type="range"
+      min="1"
+      max="10"
+      step="1"
+      value="1"
+      data-cone-range
+      aria-describedby="cone-readout"
+    />
+  </div>
+
+  <p class="cone__readout" id="cone-readout" data-cone-readout>
+    design a loading bar
+  </p>
+
+  <div class="cone__chart">
+    <svg viewBox="-24 -20 148 148" role="img" aria-label="Cone of uncertainty chart">
+      <path data-cone-fill d="M0,100 L100,10 L100,0 L90,0 Z" />
+      <path
+        d="M0,100 L100,0"
+        stroke="var(--bone-faint)"
+        stroke-dasharray="2 2"
+        stroke-width="0.5"
+        fill="none"
+      />
+      <path d="M0,0 L0,100 L100,100" stroke="var(--bone-dim)" stroke-width="0.75" fill="none" />
+      <text x="-22" y="52" font-size="5" fill="var(--bone-dim)">Done</text>
+      <text x="50" y="112" font-size="5" fill="var(--bone-dim)" text-anchor="middle">Time</text>
+    </svg>
+  </div>
+</article>
+
+<script>
+  const LINES = [
+    "design a loading bar",
+    "…and build it in a UI",
+    "…and get in contact with the UAT team to write a test",
+    "…email their manager to see if they have time",
+    "…oh, are they on vacation?",
+    "…can Allie do it?",
+    "…no, only Barry has access to the repo where CI runs",
+    "😑😑😑",
+    "…and incorporate it with the entire app context",
+    "…and rip out everywhere there is some kind of loading state and replace it",
+  ];
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-cone]")) {
+    const range = root.querySelector<HTMLInputElement>("[data-cone-range]");
+    const readout = root.querySelector<HTMLElement>("[data-cone-readout]");
+    const fill = root.querySelector<SVGPathElement>("[data-cone-fill]");
+    if (!range || !readout || !fill) continue;
+
+    const render = () => {
+      const stories = parseInt(range.value, 10);
+      const y = stories * 10;
+      readout.textContent = LINES[stories - 1] ?? LINES.at(-1)!;
+      fill.setAttribute("d", `M0,100 L100,${y} L100,0 L${100 - y},0 Z`);
+    };
+
+    range.addEventListener("input", render);
+    render();
+  }
+</script>
+
+<style>
+  .cone {
+    margin: 5rem 0;
+  }
+
+  .cone__title {
+    font-family: var(--font-body);
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0.4rem 0 1.6rem;
+  }
+
+  .cone__control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cone__label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 2px;
+    background: var(--ash-600);
+    outline-offset: 6px;
+    cursor: ew-resize;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 0;
+    background: var(--rust);
+    border: 2px solid var(--void);
+    box-shadow: 0 0 0 1px var(--rust);
+    transition: transform 0.12s ease, background 0.2s ease;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15) rotate(45deg);
+    background: var(--rust-bright);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 0;
+    background: var(--rust);
+    border: 2px solid var(--void);
+    cursor: ew-resize;
+  }
+
+  input[type="range"]::-moz-range-track {
+    height: 2px;
+    background: var(--ash-600);
+  }
+
+  .cone__readout {
+    min-height: 2.6em;
+    margin: 1.4rem 0 1.8rem;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    line-height: 1.35;
+    color: var(--acid);
+  }
+
+  .cone__chart {
+    max-width: 26rem;
+  }
+
+  .cone__chart svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  [data-cone-fill] {
+    fill: color-mix(in srgb, var(--rust) 78%, transparent);
+    stroke: var(--rust-bright);
+    stroke-width: 0.5;
+    transition: d 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+</style>

@@ -1,0 +1,170 @@
+/* ============================================================
+   DEVASTATED WASTELAND — design system
+   Brutalist editorial. Ash, bone, and a rust signal.
+   ============================================================ */
+
+@font-face {
+  font-family: "Monoton";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("/fonts/monoton/monoton-regular-webfont.woff2") format("woff2"),
+    url("/fonts/monoton/monoton-regular-webfont.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Alata";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("/fonts/alata/alata-regular-webfont.woff2") format("woff2"),
+    url("/fonts/alata/alata-regular-webfont.woff") format("woff");
+}
+
+:root {
+  /* palette — a burned-out ashscape */
+  --void: #0a0a0b;
+  --ash-900: #121214;
+  --ash-800: #1a1a1d;
+  --ash-700: #26262b;
+  --ash-600: #34343a;
+  --bone: #e9e3d5;
+  --bone-dim: #9d978a;
+  --bone-faint: #6a655c;
+  --rust: #d9542b;
+  --rust-bright: #f4703f;
+  --acid: #c8b560;
+
+  --font-brand: "Monoton", cursive;
+  --font-body: "Alata", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+
+  --measure: 66ch;
+  --edge: clamp(1.25rem, 5vw, 4rem);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--void);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 0.5vw + 1rem, 1.2rem);
+  line-height: 1.72;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* faint drifting grain over the whole page for grit */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+
+a {
+  color: var(--rust-bright);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--rust-bright) 35%, transparent);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+a:hover {
+  color: var(--bone);
+  border-color: var(--rust);
+  background-color: color-mix(in srgb, var(--rust) 18%, transparent);
+}
+
+strong {
+  color: var(--bone);
+  font-weight: 400;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--rust) 30%, transparent) 0 0.35em,
+    transparent 0.35em
+  );
+}
+
+em {
+  font-style: italic;
+  color: var(--acid);
+}
+
+::selection {
+  background: var(--rust);
+  color: var(--void);
+}
+
+/* ---- typographic scale ---- */
+.brand {
+  font-family: var(--font-brand);
+  font-weight: 400;
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+/* ---- reveal-on-scroll ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.4rem);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--rust-bright);
+  outline-offset: 3px;
+}
