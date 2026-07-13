@@ -45,6 +45,10 @@ const essays: { title: string; body: string }[] = [
     title: "We&rsquo;re in a state of Jabberwocky",
     body: `We&rsquo;ve got the product you&rsquo;ve always wanted. All you have to do is believe. And don&rsquo;t do your research. The roadmap gyres, the KPIs gimble, and somewhere a stakeholder cries &ldquo;callooh, callay!&rdquo; Ship it.`,
   },
+  {
+    title: "End of the line",
+    body: `The gist is, my dear reader, that agile is four simple preferences. That&rsquo;s it. Everything you ever learned, everything you thought you knew, everything you thought you were waiting to discover &mdash; it was all false. If all that specialization were the natural order, the specialization would not exist or be necessary. And it&rsquo;s not. The natural order is the end of the line: go and do the work. Let&rsquo;s prevent the devastated wasteland together.`,
+  },
 ];
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -115,24 +119,25 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
     <div class="rule reveal" aria-hidden="true"></div>
 
-    <!-- Essays -->
+    <!-- Essays, with the cone ad wedged in as an interstitial -->
     <div class="essays">
       {
         essays.map((essay, i) => (
-          <article class="essay reveal">
-            <span class="essay__num" aria-hidden="true">
-              {pad(i + 1)}
-            </span>
-            <div class="essay__content">
-              <h2 class="essay__title" set:html={essay.title} />
-              <div class="essay__body" set:html={essay.body} />
-            </div>
-          </article>
+          <>
+            <article class="essay reveal">
+              <span class="essay__num" aria-hidden="true">
+                {pad(i + 1)}
+              </span>
+              <div class="essay__content">
+                <h2 class="essay__title" set:html={essay.title} />
+                <div class="essay__body" set:html={essay.body} />
+              </div>
+            </article>
+            {i === 4 && <ConeChart />}
+          </>
         ))
       }
     </div>
-
-    <ConeChart />
   </main>
 
   <!-- ============ FOOTER ============ -->
