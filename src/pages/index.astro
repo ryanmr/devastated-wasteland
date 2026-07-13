@@ -170,6 +170,18 @@ const pad = (n: number) => String(n).padStart(2, "0");
         href="https://unsplash.com/photos/PNKwdJ8WetM">Unsplash</a
       >
     </p>
+    <p class="footer__made">
+      Built by
+      <a rel="noreferrer noopener" target="_blank" href="https://ryanrampersad.com"
+        >Ryan Rampersad</a
+      >
+      <span class="footer__dot" aria-hidden="true">·</span>
+      <a
+        rel="noreferrer noopener"
+        target="_blank"
+        href="https://github.com/ryanmr/devastated-wasteland">Source on GitHub</a
+      >
+    </p>
     <p class="footer__year">{year}</p>
   </footer>
 </Layout>
@@ -551,6 +563,17 @@ const pad = (n: number) => String(n).padStart(2, "0");
     margin: 0;
     font-size: 0.9rem;
     color: var(--bone-dim);
+  }
+
+  .footer__made {
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+    color: var(--bone-dim);
+  }
+
+  .footer__dot {
+    margin: 0 0.5rem;
+    color: var(--bone-faint);
   }
 
   .footer__year {
