@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Logo from "../components/Logo.astro";
 import ConeChart from "../components/ConeChart.astro";
+import SynergyAd from "../components/SynergyAd.astro";
 
 const year = new Date().getFullYear();
 
@@ -133,6 +134,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
                 <div class="essay__body" set:html={essay.body} />
               </div>
             </article>
+            {i === 1 && <SynergyAd />}
             {i === 4 && <ConeChart />}
           </>
         ))

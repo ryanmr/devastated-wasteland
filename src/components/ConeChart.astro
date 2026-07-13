@@ -1,76 +1,52 @@
 ---
-// "Cone of Uncertainty" — an interstitial dressed up as an ad unit, wedged
-// between two articles. Collapsed it reads like a sponsored slot; expand it
-// and the estimate spirals into the abyss as you drag the slider.
+import AdSlot from "./AdSlot.astro";
+// "Cone of Uncertainty" — an interstitial dressed up as an ad unit. Expand it
+// and a single loading-bar estimate spirals into the abyss as you drag.
 ---
 
-<aside class="cone-ad reveal" data-cone>
-  <span class="cone-ad__label">Advertisement</span>
-
-  <details class="cone-ad__box">
-    <summary class="cone-ad__summary">
-      <span class="cone-ad__pitch">
-        <span class="cone-ad__eyebrow">Sponsored tooling</span>
-        <span class="cone-ad__headline">The Cone of Uncertainty&trade;</span>
-        <span class="cone-ad__sub">
-          Estimate any epic with one honest slider. Stakeholders amazed.
-          Deadlines unaffected.
-        </span>
-      </span>
-      <span class="cone-ad__toggle" aria-hidden="true">
-        <span class="cone-ad__toggle-text" data-open-text>Expand</span>
-        <span class="cone-ad__toggle-text" data-close-text>Collapse</span>
-        <svg viewBox="0 0 24 24" width="16" height="16" class="cone-ad__chevron">
-          <path
-            d="M6 9l6 6 6-6"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"></path>
-        </svg>
-      </span>
-    </summary>
-
-    <div class="cone-ad__body">
-      <div class="cone-ad__control">
-        <label class="cone-ad__control-label" for="cone-range">
-          Stories in the epic
-        </label>
-        <input
-          id="cone-range"
-          type="range"
-          min="1"
-          max="10"
-          step="1"
-          value="1"
-          data-cone-range
-          aria-describedby="cone-readout"
-        />
-      </div>
-
-      <p class="cone-ad__readout" id="cone-readout" data-cone-readout>
-        design a loading bar
-      </p>
-
-      <div class="cone-ad__chart">
-        <svg viewBox="-24 -20 148 148" role="img" aria-label="Cone of uncertainty chart">
-          <path data-cone-fill d="M0,100 L100,10 L100,0 L90,0 Z" />
-          <path
-            d="M0,100 L100,0"
-            stroke="var(--bone-faint)"
-            stroke-dasharray="2 2"
-            stroke-width="0.5"
-            fill="none"
-          />
-          <path d="M0,0 L0,100 L100,100" stroke="var(--bone-dim)" stroke-width="0.75" fill="none" />
-          <text x="-22" y="52" font-size="5" fill="var(--bone-dim)">Done</text>
-          <text x="50" y="112" font-size="5" fill="var(--bone-dim)" text-anchor="middle">Time</text>
-        </svg>
-      </div>
+<AdSlot
+  eyebrow="Sponsored tooling"
+  headline="The Cone of Uncertainty&trade;"
+  sub="Estimate any epic with one honest slider. Stakeholders amazed. Deadlines unaffected."
+>
+  <div class="cone" data-cone>
+    <div class="cone__control">
+      <label class="cone__control-label" for="cone-range">
+        Stories in the epic
+      </label>
+      <input
+        id="cone-range"
+        type="range"
+        min="1"
+        max="10"
+        step="1"
+        value="1"
+        data-cone-range
+        aria-describedby="cone-readout"
+      />
     </div>
-  </details>
-</aside>
+
+    <p class="cone__readout" id="cone-readout" data-cone-readout>
+      design a loading bar
+    </p>
+
+    <div class="cone__chart">
+      <svg viewBox="-24 -20 148 148" role="img" aria-label="Cone of uncertainty chart">
+        <path data-cone-fill d="M0,100 L100,10 L100,0 L90,0 Z" />
+        <path
+          d="M0,100 L100,0"
+          stroke="var(--bone-faint)"
+          stroke-dasharray="2 2"
+          stroke-width="0.5"
+          fill="none"
+        />
+        <path d="M0,0 L0,100 L100,100" stroke="var(--bone-dim)" stroke-width="0.75" fill="none" />
+        <text x="-22" y="52" font-size="5" fill="var(--bone-dim)">Done</text>
+        <text x="50" y="112" font-size="5" fill="var(--bone-dim)" text-anchor="middle">Time</text>
+      </svg>
+    </div>
+  </div>
+</AdSlot>
 
 <script>
   const LINES = [
@@ -105,139 +81,13 @@
 </script>
 
 <style>
-  .cone-ad {
-    position: relative;
-    border: 1px dashed var(--ash-600);
-    background: linear-gradient(
-      180deg,
-      var(--ash-900),
-      color-mix(in srgb, var(--ash-900) 60%, var(--void))
-    );
-  }
-
-  /* faux "ad" corner label */
-  .cone-ad__label {
-    position: absolute;
-    top: -0.6rem;
-    left: 1.25rem;
-    padding: 0.15rem 0.55rem;
-    background: var(--void);
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--bone-faint);
-  }
-
-  .cone-ad__box {
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-  }
-
-  /* ---- collapsed banner ---- */
-  .cone-ad__summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    cursor: pointer;
-    list-style: none;
-  }
-
-  .cone-ad__summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .cone-ad__pitch {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .cone-ad__eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--rust);
-  }
-
-  .cone-ad__headline {
-    font-size: clamp(1.5rem, 4vw, 2.1rem);
-    line-height: 1.1;
-    color: var(--bone);
-  }
-
-  .cone-ad__sub {
-    font-size: 0.95rem;
-    line-height: 1.45;
-    color: var(--bone-dim);
-    max-width: 46ch;
-  }
-
-  .cone-ad__toggle {
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--rust-bright);
-    transition: color 0.2s ease;
-  }
-
-  .cone-ad__summary:hover .cone-ad__toggle {
-    color: var(--bone);
-  }
-
-  /* swap Expand / Collapse label with the open state */
-  [data-close-text] {
-    display: none;
-  }
-  .cone-ad__box[open] [data-open-text] {
-    display: none;
-  }
-  .cone-ad__box[open] [data-close-text] {
-    display: inline;
-  }
-
-  .cone-ad__chevron {
-    transition: transform 0.25s ease;
-  }
-  .cone-ad__box[open] .cone-ad__chevron {
-    transform: rotate(180deg);
-  }
-
-  /* ---- expanded body ---- */
-  .cone-ad__body {
-    margin-top: clamp(1.75rem, 4vw, 2.5rem);
-    padding-top: clamp(1.5rem, 3vw, 2rem);
-    border-top: 1px solid var(--ash-700);
-  }
-
-  .cone-ad__box[open] .cone-ad__body {
-    animation: coneReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  @keyframes coneReveal {
-    from {
-      opacity: 0;
-      transform: translateY(0.8rem);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  .cone-ad__control {
+  .cone__control {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .cone-ad__control-label {
+  .cone__control-label {
     font-family: var(--font-mono);
     font-size: 0.72rem;
     letter-spacing: 0.18em;
@@ -286,7 +136,7 @@
     background: var(--ash-600);
   }
 
-  .cone-ad__readout {
+  .cone__readout {
     min-height: 2.6em;
     margin: 1.4rem 0 1.8rem;
     font-size: clamp(1.15rem, 2.4vw, 1.5rem);
@@ -294,11 +144,11 @@
     color: var(--acid);
   }
 
-  .cone-ad__chart {
+  .cone__chart {
     width: 100%;
   }
 
-  .cone-ad__chart svg {
+  .cone__chart svg {
     width: 100%;
     height: auto;
     display: block;
@@ -311,18 +161,7 @@
     transition: d 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  @media (max-width: 34rem) {
-    .cone-ad__summary {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .cone-ad__box[open] .cone-ad__body {
-      animation: none;
-    }
-    .cone-ad__chevron,
     [data-cone-fill] {
       transition: none;
     }

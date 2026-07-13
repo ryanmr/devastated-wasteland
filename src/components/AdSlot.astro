@@ -1,0 +1,190 @@
+---
+// Reusable "sponsored" interstitial shell — a dashed ad slot with an
+// ADVERTISEMENT tag and an expand/collapse <details> disclosure. Widgets
+// pass their pitch via props and their interactive guts via the default slot.
+interface Props {
+  eyebrow: string;
+  headline: string;
+  sub: string;
+  openText?: string;
+  closeText?: string;
+}
+const {
+  eyebrow,
+  headline,
+  sub,
+  openText = "Expand",
+  closeText = "Collapse",
+} = Astro.props;
+---
+
+<aside class="ad reveal">
+  <span class="ad__label">Advertisement</span>
+
+  <details class="ad__box">
+    <summary class="ad__summary">
+      <span class="ad__pitch">
+        <span class="ad__eyebrow">{eyebrow}</span>
+        <span class="ad__headline" set:html={headline} />
+        <span class="ad__sub">{sub}</span>
+      </span>
+      <span class="ad__toggle" aria-hidden="true">
+        <span class="ad__toggle-text" data-open-text>{openText}</span>
+        <span class="ad__toggle-text" data-close-text>{closeText}</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" class="ad__chevron">
+          <path
+            d="M6 9l6 6 6-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </span>
+    </summary>
+
+    <div class="ad__body">
+      <slot />
+    </div>
+  </details>
+</aside>
+
+<style>
+  .ad {
+    position: relative;
+    border: 1px dashed var(--ash-600);
+    background: linear-gradient(
+      180deg,
+      var(--ash-900),
+      color-mix(in srgb, var(--ash-900) 60%, var(--void))
+    );
+  }
+
+  .ad__label {
+    position: absolute;
+    top: -0.6rem;
+    left: 1.25rem;
+    padding: 0.15rem 0.55rem;
+    background: var(--void);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--bone-faint);
+  }
+
+  .ad__box {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .ad__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .ad__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .ad__pitch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .ad__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--rust);
+  }
+
+  .ad__headline {
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    line-height: 1.1;
+    color: var(--bone);
+  }
+
+  .ad__sub {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--bone-dim);
+    max-width: 46ch;
+  }
+
+  .ad__toggle {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust-bright);
+    transition: color 0.2s ease;
+  }
+
+  .ad__summary:hover .ad__toggle {
+    color: var(--bone);
+  }
+
+  [data-close-text] {
+    display: none;
+  }
+  .ad__box[open] [data-open-text] {
+    display: none;
+  }
+  .ad__box[open] [data-close-text] {
+    display: inline;
+  }
+
+  .ad__chevron {
+    transition: transform 0.25s ease;
+  }
+  .ad__box[open] .ad__chevron {
+    transform: rotate(180deg);
+  }
+
+  .ad__body {
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--ash-700);
+  }
+
+  .ad__box[open] .ad__body {
+    animation: adReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes adReveal {
+    from {
+      opacity: 0;
+      transform: translateY(0.8rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .ad__summary {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ad__box[open] .ad__body {
+      animation: none;
+    }
+    .ad__chevron {
+      transition: none;
+    }
+  }
+</style>
