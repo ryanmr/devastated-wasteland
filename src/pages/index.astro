@@ -289,8 +289,11 @@ const pad = (n: number) => String(n).padStart(2, "0");
   .hero__scroll {
     position: absolute;
     bottom: clamp(1.5rem, 4vh, 2.75rem);
-    left: 50%;
-    transform: translateX(-50%);
+    /* center without transform — the rise animation owns transform */
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: max-content;
     z-index: 1;
     display: flex;
     flex-direction: column;
