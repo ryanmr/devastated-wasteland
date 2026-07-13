@@ -6,6 +6,8 @@ import SynergyAd from "../components/SynergyAd.astro";
 import NewsletterBox from "../components/NewsletterBox.astro";
 
 const year = new Date().getFullYear();
+// the launch is perpetually a year away
+const comingYear = year + 1;
 
 // The manifesto, essay by essay. Bodies may carry inline markup; an optional
 // `finale` renders as an embellished closing flourish.
@@ -69,7 +71,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
       <h1 class="hero__title brand">devastated<br />wasteland</h1>
       <div class="hero__meta">
         <span class="hero__soon">Coming soon</span>
-        <span class="hero__year">{year}</span>
+        <span class="hero__year">{comingYear}</span>
       </div>
     </div>
 
@@ -172,14 +174,17 @@ const pad = (n: number) => String(n).padStart(2, "0");
     </p>
     <p class="footer__made">
       Built by
-      <a rel="noreferrer noopener" target="_blank" href="https://ryanrampersad.com"
-        >Ryan Rampersad</a
+      <a
+        rel="noreferrer noopener"
+        target="_blank"
+        href="https://ryanrampersad.com/?from=devastatedwasteland.com">Ryan Rampersad</a
       >
       <span class="footer__dot" aria-hidden="true">·</span>
       <a
         rel="noreferrer noopener"
         target="_blank"
-        href="https://github.com/ryanmr/devastated-wasteland">Source on GitHub</a
+        href="https://github.com/ryanmr/devastated-wasteland/?from=devastatedwasteland.com"
+        >Source on GitHub</a
       >
     </p>
     <p class="footer__year">{year}</p>
