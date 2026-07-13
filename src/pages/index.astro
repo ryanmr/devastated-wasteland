@@ -6,8 +6,9 @@ import SynergyAd from "../components/SynergyAd.astro";
 
 const year = new Date().getFullYear();
 
-// The manifesto, essay by essay. Bodies may carry inline markup.
-const essays: { title: string; body: string }[] = [
+// The manifesto, essay by essay. Bodies may carry inline markup; an optional
+// `finale` renders as an embellished closing flourish.
+const essays: { title: string; body: string; finale?: string }[] = [
   {
     title: "FrAgile",
     body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia iaculis ultricies. Morbi non dictum neque, vel commodo erat. Praesent placerat libero at nisl efficitur tristique. Vivamus id nulla a nibh euismod eleifend. Etiam malesuada lectus sit amet eros semper, at fringilla lorem malesuada. Curabitur faucibus pellentesque lacinia. This sums up <em>&ldquo;agile&rdquo;</em> well enough.`,
@@ -40,7 +41,7 @@ const essays: { title: string; body: string }[] = [
   },
   {
     title: "There are no 4&rsquo;s in the Serengeti",
-    body: `Right angles are boring. Break out of your four box. Creative outcomes come as a result of prime number increments. Two, three, five, seven &mdash; never four. Four is too comfortable, too certain, too square.`,
+    body: `Right angles are boring; nature never drew one. Yet somewhere an analyst has trapped your entire industry inside a four-box grid &mdash; Leaders, Challengers, Visionaries, and whatever corner they dropped you in &mdash; and called it a Magic Quadrant. There are no quadrants on the savanna. The Serengeti counts in spirals: one, one, two, three, five, eight. Notice what&rsquo;s missing? Four. Four is too comfortable, too certain, too square.`,
   },
   {
     title: "We&rsquo;re in a state of Jabberwocky",
@@ -48,7 +49,8 @@ const essays: { title: string; body: string }[] = [
   },
   {
     title: "End of the line",
-    body: `The gist is, my dear reader, that agile is four simple preferences. That&rsquo;s it. Everything you ever learned, everything you thought you knew, everything you thought you were waiting to discover &mdash; it was all false. If all that specialization were the natural order, the specialization would not exist or be necessary. And it&rsquo;s not. The natural order is the end of the line: go and do the work. Let&rsquo;s prevent the devastated wasteland together.`,
+    body: `The gist is, my dear reader, that agile is four simple preferences. That&rsquo;s it. Everything you ever learned, everything you thought you knew, everything you thought you were waiting to discover &mdash; it was all false. If all that specialization were the natural order, the specialization would not exist or be necessary. And it&rsquo;s not. The natural order is the end of the line: go and do the work.`,
+    finale: `Let&rsquo;s prevent the <span class="finale__phrase">devastated wasteland</span> together.`,
   },
 ];
 
@@ -132,6 +134,14 @@ const pad = (n: number) => String(n).padStart(2, "0");
               <div class="essay__content">
                 <h2 class="essay__title" set:html={essay.title} />
                 <div class="essay__body" set:html={essay.body} />
+                {
+                  essay.finale && (
+                    <div class="finale">
+                      <span class="finale__rule" aria-hidden="true" />
+                      <p class="finale__text" set:html={essay.finale} />
+                    </div>
+                  )
+                }
               </div>
             </article>
             {i === 1 && <SynergyAd />}
@@ -457,6 +467,50 @@ const pad = (n: number) => String(n).padStart(2, "0");
     }
     .essay__num {
       padding-top: 0;
+    }
+  }
+
+  /* ---------------- FINALE ---------------- */
+  .finale {
+    margin-top: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .finale__rule {
+    display: block;
+    width: 3rem;
+    height: 2px;
+    margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+    background: var(--rust);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--rust) 70%, transparent);
+  }
+
+  .finale__text {
+    margin: 0;
+    font-size: clamp(1.65rem, 5vw, 2.9rem);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+    color: var(--bone);
+  }
+
+  .finale__text :global(.finale__phrase) {
+    color: var(--rust-bright);
+    text-shadow: 0 0 24px color-mix(in srgb, var(--rust) 55%, transparent);
+    animation: finaleGlow 3.6s ease-in-out infinite;
+  }
+
+  @keyframes finaleGlow {
+    0%,
+    100% {
+      text-shadow: 0 0 16px color-mix(in srgb, var(--rust) 40%, transparent);
+    }
+    50% {
+      text-shadow: 0 0 34px color-mix(in srgb, var(--rust) 80%, transparent);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .finale__text :global(.finale__phrase) {
+      animation: none;
     }
   }
 
