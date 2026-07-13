@@ -1,0 +1,202 @@
+---
+// A newsletter box that never collects anything. Submit an email and it
+// confesses the feature isn't enabled yet — because we're only a Minimum
+// [Viable] Product, where the V-word rotates forever.
+---
+
+<section class="news reveal" data-news>
+  <span class="news__tag">Newsletter</span>
+
+  <div data-news-form-wrap>
+    <h2 class="news__title">Sign up for our newsletter</h2>
+    <p class="news__sub">
+      One dispatch per sprint. Or per fad. Whichever ships first.
+    </p>
+
+    <form class="news__form" data-news-form novalidate>
+      <input
+        type="email"
+        class="news__input"
+        placeholder="you@company.com"
+        aria-label="Email address"
+        required
+      />
+      <button type="submit" class="news__btn">Subscribe</button>
+    </form>
+  </div>
+
+  <div class="news__result" data-news-result hidden>
+    <p class="news__result-text">
+      Sorry, that feature isn&rsquo;t enabled yet &mdash; we&rsquo;re still just a
+      Minimum <span class="news__vword" data-vword>Viable</span> Product (MVP).
+    </p>
+  </div>
+</section>
+
+<script>
+  const V_WORDS = [
+    "Viable",
+    "Valuable",
+    "Vulnerable",
+    "Vaporous",
+    "Vestigial",
+    "Vague",
+    "Verbose",
+    "Volatile",
+    "Vexing",
+    "Vengeful",
+    "Vanishing",
+    "Venerable",
+    "Voracious",
+    "Villainous",
+    "Virtuous",
+    "Vacant",
+    "Vindictive",
+    "Velvety",
+    "Viral",
+    "Voluminous",
+  ];
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-news]")) {
+    const form = root.querySelector<HTMLFormElement>("[data-news-form]");
+    const wrap = root.querySelector<HTMLElement>("[data-news-form-wrap]");
+    const result = root.querySelector<HTMLElement>("[data-news-result]");
+    const vword = root.querySelector<HTMLElement>("[data-vword]");
+    const input = root.querySelector<HTMLInputElement>(".news__input");
+    if (!form || !wrap || !result || !vword || !input) continue;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      // require something that looks like an email, otherwise nudge natively
+      if (!input.value.trim() || !input.checkValidity()) {
+        input.reportValidity();
+        return;
+      }
+
+      wrap.hidden = true;
+      result.hidden = false;
+
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % V_WORDS.length;
+        vword.style.opacity = "0";
+        setTimeout(() => {
+          vword.textContent = V_WORDS[i];
+          vword.style.opacity = "1";
+        }, 180);
+      }, 1500);
+    });
+  }
+</script>
+
+<style>
+  .news {
+    position: relative;
+    border: 1px solid var(--ash-600);
+    background: linear-gradient(
+      180deg,
+      var(--ash-900),
+      color-mix(in srgb, var(--ash-900) 60%, var(--void))
+    );
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .news__tag {
+    position: absolute;
+    top: -0.6rem;
+    left: 1.25rem;
+    padding: 0.15rem 0.55rem;
+    background: var(--void);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--acid);
+  }
+
+  .news__title {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--bone);
+  }
+
+  .news__sub {
+    margin: 0.6rem 0 1.6rem;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--bone-dim);
+  }
+
+  .news__form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .news__input {
+    flex: 1 1 16rem;
+    min-width: 0;
+    background: var(--void);
+    border: 1px solid var(--ash-600);
+    color: var(--bone);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .news__input::placeholder {
+    color: var(--bone-faint);
+  }
+
+  .news__input:focus-visible {
+    outline: none;
+    border-color: var(--rust);
+  }
+
+  .news__btn {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--void);
+    background: var(--rust);
+    border: none;
+    padding: 0 1.5rem;
+    cursor: pointer;
+    transition:
+      background 0.15s ease,
+      transform 0.08s ease;
+  }
+
+  .news__btn:hover {
+    background: var(--rust-bright);
+  }
+
+  .news__btn:active {
+    transform: translateY(1px);
+  }
+
+  .news__result-text {
+    margin: 0;
+    font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+    line-height: 1.4;
+    color: var(--bone);
+  }
+
+  .news__vword {
+    display: inline-block;
+    min-width: 6ch;
+    color: var(--rust-bright);
+    text-shadow: 0 0 20px color-mix(in srgb, var(--rust) 55%, transparent);
+    transition: opacity 0.18s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .news__vword {
+      transition: none;
+    }
+  }
+</style>
