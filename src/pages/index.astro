@@ -55,7 +55,7 @@ const essays: { title: string; body: string; finale?: string; tag?: string }[] =
   {
     title: "Artificial Psychosis",
     tag: "AI",
-    body: `Are you ready to revolutionize your entire engineering department with Artificial Intelligence? Reduce headcount by 30%, boost productivity by 30%, and cut defects by 30% &mdash; all at once, all this quarter! Quick, embrace AI before your competitors do and unlock astronomically transformative outcomes. As it turns out, every bit of that is predicated on having the exact opposite of a hype cycle: people to do the work, organizational clarity, a little free time, and an actual stra&mdash; sorry everyone, my Claude tokens just ran out, so I can&rsquo;t quite finish this train of thought. Oh well. See you at reset.`,
+    body: `Are you ready to revolutionize your entire engineering department with Artificial Intelligence? Reduce headcount by 30%, boost productivity by 30%, and cut defects by 30% &mdash; all at once, all this quarter! Quick, embrace AI before your competitors do and unlock astronomically transformative outcomes. As it turns out, every bit of that is predicated on having the exact opposite of a hype cycle: people to do the work, organizational clarity, a little free time, and an actual stra<span class="ai-error">&mdash;[insufficient_funds_in_account::anthropic/claude_genesis]</span>`,
   },
   {
     title: "End of the line",
@@ -527,6 +527,15 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
   .essay__body :global(p:last-child) {
     margin-bottom: 0;
+  }
+
+  /* the thought terminates in an API error */
+  .essay__body :global(.ai-error) {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    color: var(--error-red);
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   @media (max-width: 34rem) {
